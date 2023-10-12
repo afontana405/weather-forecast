@@ -1,0 +1,15 @@
+body {
+    overflow-x: hidden;
+}
+
+header {
+    background-color: lightblue;
+    display: flex;
+    justify-content: center;
+}
+
+aside {
+    background-color: blue;
+    border-style: solid;
+    height: 600px;
+}
