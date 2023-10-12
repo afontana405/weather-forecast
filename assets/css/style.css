@@ -3,13 +3,28 @@ body {
 }
 
 header {
-    background-color: lightblue;
+    background-color: blue;
     display: flex;
     justify-content: center;
 }
 
 aside {
-    background-color: blue;
+    background-color: lightblue;
     border-style: solid;
     height: 600px;
+}
+
+#currentWeather {
+    background-color: gray;
+    border-style: solid;
+    height: 200px;
+}
+
+#forecastWeather {
+    background-color: purple;
+    border-style: solid;
+    height: 300px;
+    display: flex;
+    position: relative;
+    bottom: -100px;
 }
