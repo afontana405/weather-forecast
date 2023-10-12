@@ -33,6 +33,7 @@ $(document).ready(function() {
             });
     }
 
+    // calls api to get weather tied to cordinates
     function getWeather(latitude, longitude) {
         weatherUrl = 'https://api.openweathermap.org/data/2.5/weather?lat=' + latitude + '&lon=' + longitude +  '&units=imperial&appid=7ff589e4bc4b4b8d6fc8df8bb1158396'
         fetch(weatherUrl)
@@ -40,7 +41,11 @@ $(document).ready(function() {
                 return response.json()
             })
             .then(function (data){
-                console.log(data);
+                displayWeather(data)
             })
+    }
+
+    function displayWeather(data) {
+        console.log(data);
     }
 });
