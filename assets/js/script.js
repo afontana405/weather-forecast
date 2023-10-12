@@ -2,6 +2,11 @@ $(document).ready(function() {
     var inputEl = $('#city');
     var submitbtn = $('#btn');
     var searchHistory = $('#searchHistory');
+    var currentWindEl = $('#currentWind');
+    var currentTempEl = $('#currentTemp');
+    var currentHumidityEl = $('#currentHumidity');
+    var currentIconEl = $('#currentIcon');
+    var cityEl = $('#cityName');
     weatherUrl = 'https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid=7ff589e4bc4b4b8d6fc8df8bb1158396'
     
     // on btn click, runs these functions
@@ -46,6 +51,11 @@ $(document).ready(function() {
     }
 
     function displayWeather(data) {
-        console.log(data);
+        var city = inputEl.val();
+        cityEl.text(city);
+        currentWindEl.text("wind speed: " + data.wind.speed + "mph");
+        currentTempEl.text("temp: " + data.main.temp + "°F");
+        currentHumidityEl.text("humidity: " + data.main.humidity + "%");
+        currentIconEl.text(data.weather[0].icon);
     }
 });
