@@ -18,6 +18,8 @@ aside {
     background-color: gray;
     border-style: solid;
     height: 200px;
+    position: relative;
+    top: 10px;
 }
 
 #forecastWeather {
