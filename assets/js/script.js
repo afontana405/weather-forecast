@@ -11,7 +11,6 @@ $(document).ready(function() {
     
     // on btn click, runs these functions
     submitbtn.click(function() {
-        recentsearches();
         findCords();
     });
     
@@ -34,7 +33,9 @@ $(document).ready(function() {
             .then(function (data) {
                 var longitude = data[0].lon;
                 var latitude = data[0].lat;
-                getWeather(latitude, longitude)
+                getWeather(latitude, longitude);
+                getForecast(latitude, longitude);
+                recentsearches();
             });
     }
 
@@ -46,6 +47,7 @@ $(document).ready(function() {
                 return response.json()
             })
             .then(function (data){
+                console.log(data);
                 displayWeather(data)
             })
     }
@@ -57,5 +59,16 @@ $(document).ready(function() {
         currentTempEl.text("temp: " + data.main.temp + "°F");
         currentHumidityEl.text("humidity: " + data.main.humidity + "%");
         currentIconEl.text(data.weather[0].icon);
+    }
+
+    function getForecast(latitude, longitude) {
+        ForecastUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + latitude + '&lon=' + longitude +  '&cnt=40&units=imperial&appid=7ff589e4bc4b4b8d6fc8df8bb1158396'
+        fetch(ForecastUrl)
+            .then(function (response){
+                return response.json()
+            })
+            .then(function (data) {
+                console.log(data);
+            });
     }
 });
