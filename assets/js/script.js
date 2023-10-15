@@ -6,9 +6,11 @@ $(document).ready(function() {
     var currentTempEl = $('#currentTemp');
     var currentHumidityEl = $('#currentHumidity');
     var currentIconEl = $('#currentIcon');
+    var forecastEl = $('#forecastWeather');
     var cityEl = $('#cityName');
     weatherUrl = 'https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid=7ff589e4bc4b4b8d6fc8df8bb1158396'
-    
+    var forecastDaySelector = [0,8,16,24,32];
+
     // on btn click, runs these functions
     submitbtn.click(function() {
         findCords();
@@ -47,7 +49,6 @@ $(document).ready(function() {
                 return response.json()
             })
             .then(function (data){
-                console.log(data);
                 displayWeather(data)
             })
     }
@@ -62,13 +63,32 @@ $(document).ready(function() {
     }
 
     function getForecast(latitude, longitude) {
-        ForecastUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + latitude + '&lon=' + longitude +  '&cnt=40&units=imperial&appid=7ff589e4bc4b4b8d6fc8df8bb1158396'
+        ForecastUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + latitude + '&lon=' + longitude +  '&cnt=33&units=imperial&appid=7ff589e4bc4b4b8d6fc8df8bb1158396'
         fetch(ForecastUrl)
             .then(function (response){
                 return response.json()
             })
             .then(function (data) {
                 console.log(data);
+                displayForecast(data);
             });
     }
+
+    function displayForecast(data) {
+        for (var i = 0; i < forecastDaySelector.length; i++) {
+            var forecastDisplayEl = document.getElementsByClassName([i]);
+            console.log(forecastDisplayEl);
+            forecastDisplayEl.textContent = data.list[forecastDaySelector[i]].dt_txt + ' temp:' + data.list[forecastDaySelector[i]].main.temp + '°F' + ' Wind Speed:' + data.list[forecastDaySelector[i]].wind.speed + 'mph' + ' Humidity:' + data.list[forecastDaySelector[i]].main.humidity + '%';
+        }
+    }
 });
+
+
+// function displayForecast(data) {
+//     for (var i = 0; i < forecastDaySelector.length; i++) {
+//       var forecastText = document.createTextNode(data.list[forecastDaySelector[i]].dt_txt);
+//       var forecastDisplayEl = document.getElementsByClassName([i])[0];
+//       forecastDisplayEl.appendChild(forecastText);
+//       console.log(data.list[forecastDaySelector[i]].dt_txt);
+//     }
+//   }
