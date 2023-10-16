@@ -10,7 +10,7 @@ $(document).ready(function() {
     var searchHistoryBtn = $('.searchHistoryBtn');
     var forecastDaySelector = [7,15,23,31,39];
     var searchedCities = JSON.parse(localStorage.getItem('searchedCities')) || [];
-
+    // on page load, add search history pulled from local storage
     $(function() {
         for (i = 0; i < searchedCities.length; i++) {
             var lastSearchEl = document.createElement('button');
@@ -86,14 +86,13 @@ $(document).ready(function() {
     function displayForecast(data) {
         for (var i = 0; i < forecastDaySelector.length; i++) {
             var forecastDateEl = document.getElementById([i]).getElementsByClassName('date');
-            forecastDateEl.textcontent = data.list[forecastDaySelector[i]].dt_txt;
-            // console.log(forecastDateEl);
+            forecastDateEl[0].textContent = data.list[forecastDaySelector[i]].dt_txt;
             var forecastTempEl = document.getElementById([i]).getElementsByClassName('temp');
-            forecastTempEl.textcontent = 'temp: ' + data.list[forecastDaySelector[i]].main.temp + '°F';
+            forecastTempEl[0].textContent = 'temp: ' + data.list[forecastDaySelector[i]].main.temp + '°F';
             var forecastWindEl = document.getElementById([i]).getElementsByClassName('wind');
-            forecastWindEl.textcontent = 'Wind Speed: ' + data.list[forecastDaySelector[i]].wind.speed + 'mph';
+            forecastWindEl[0].textContent = 'Wind Speed: ' + data.list[forecastDaySelector[i]].wind.speed + 'mph';
             var forecastHumidityEl = document.getElementById([i]).getElementsByClassName('humidity');
-            forecastHumidityEl.textcontent = 'Humidity: ' + data.list[forecastDaySelector[i]].main.humidity + '%';
+            forecastHumidityEl[0].textContent = 'Humidity: ' + data.list[forecastDaySelector[i]].main.humidity + '%';
         }
     }
     // calls function when search history button is clicked
