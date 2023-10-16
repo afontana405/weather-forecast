@@ -23,12 +23,13 @@ aside {
 }
 
 #forecastWeather {
-    background-color: purple;
+    background-color: lightcoral;
     border-style: solid;
     height: 250px;
     display: flex;
     position: relative;
     bottom: -100px;
+    font-weight: 300;
 }
 
 #forecastHeader {

@@ -1,15 +1,25 @@
 $(document).ready(function() { 
     var inputEl = $('#city');
     var submitbtn = $('#btn');
-    var searchHistory = $('#searchHistory');
+    var searchHistoryEl = $('#searchHistory');
     var currentWindEl = $('#currentWind');
     var currentTempEl = $('#currentTemp');
     var currentHumidityEl = $('#currentHumidity');
     var currentIconEl = $('#currentIcon');
     var cityEl = $('#cityName');
     var searchHistoryBtn = $('.searchHistoryBtn');
-    var forecastDaySelector = [0,8,16,24,32];
+    var forecastDaySelector = [7,15,23,31,39];
+    var storedCity= [];
+    var searchedCities = JSON.parse(localStorage.getItem('searchedCities')) || [];
 
+    $(function() {
+        for (i = 0; i < searchedCities.length; i++) {
+            var lastSearchEl = document.createElement('button');
+            lastSearchEl.className = 'searchHistoryBtn';
+            lastSearchEl.textContent = searchedCities[i];
+            searchHistoryEl.append(lastSearchEl);
+        }
+    });
     // on btn click, runs find cords function
     submitbtn.click(function() {
         findCords();
@@ -36,7 +46,9 @@ $(document).ready(function() {
         var lastSearchEl = document.createElement('button');
         lastSearchEl.className = 'searchHistoryBtn';
         lastSearchEl.textContent = city;
-        searchHistory.append(lastSearchEl);
+        searchHistoryEl.append(lastSearchEl);
+        storedCity.push(city);
+        localStorage.setItem("searchedCities", JSON.stringify(storedCity));
     }
     // calls api to get weather tied to cordinates
     function getWeather(latitude, longitude) {
@@ -60,22 +72,27 @@ $(document).ready(function() {
     }
     // calls api to get forecast
     function getForecast(latitude, longitude) {
-        ForecastUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + latitude + '&lon=' + longitude +  '&cnt=33&units=imperial&appid=7ff589e4bc4b4b8d6fc8df8bb1158396'
+        ForecastUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + latitude + '&lon=' + longitude +  '&cnt=40&units=imperial&appid=7ff589e4bc4b4b8d6fc8df8bb1158396'
         fetch(ForecastUrl)
         .then(function (response){
                 return response.json()
             })
             .then(function (data) {
-                console.log(data);
                 displayForecast(data);
             });
     }
     // displays forecast info pulled from API
     function displayForecast(data) {
         for (var i = 0; i < forecastDaySelector.length; i++) {
-            var forecastDisplayEl = document.getElementById([i]);
-            console.log(forecastDisplayEl);
-            forecastDisplayEl.textContent = data.list[forecastDaySelector[i]].dt_txt + '\ntemp: ' + data.list[forecastDaySelector[i]].main.temp + '°F' + 'Wind Speed: ' + data.list[forecastDaySelector[i]].wind.speed + 'mph' + '\nHumidity: ' + data.list[forecastDaySelector[i]].main.humidity + '%';
+            var forecastDateEl = document.getElementById([i]).getElementsByClassName('date');
+            forecastDateEl.textcontent = data.list[forecastDaySelector[i]].dt_txt;
+            // console.log(forecastDateEl);
+            var forecastTempEl = document.getElementById([i]).getElementsByClassName('temp');
+            forecastTempEl.textcontent = 'temp: ' + data.list[forecastDaySelector[i]].main.temp + '°F';
+            var forecastWindEl = document.getElementById([i]).getElementsByClassName('wind');
+            forecastWindEl.textcontent = 'Wind Speed: ' + data.list[forecastDaySelector[i]].wind.speed + 'mph';
+            var forecastHumidityEl = document.getElementById([i]).getElementsByClassName('humidity');
+            forecastHumidityEl.textcontent = 'Humidity: ' + data.list[forecastDaySelector[i]].main.humidity + '%';
         }
     }
     // calls function when search history button is clicked
