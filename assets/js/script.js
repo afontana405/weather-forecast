@@ -9,7 +9,6 @@ $(document).ready(function() {
     var cityEl = $('#cityName');
     var searchHistoryBtn = $('.searchHistoryBtn');
     var forecastDaySelector = [7,15,23,31,39];
-    var storedCity= [];
     var searchedCities = JSON.parse(localStorage.getItem('searchedCities')) || [];
 
     $(function() {
@@ -43,12 +42,14 @@ $(document).ready(function() {
     // takes user input and converts them into buttons to be easily accessed later
     function recentsearches() {
         var city = inputEl.val();
-        var lastSearchEl = document.createElement('button');
-        lastSearchEl.className = 'searchHistoryBtn';
-        lastSearchEl.textContent = city;
-        searchHistoryEl.append(lastSearchEl);
-        storedCity.push(city);
-        localStorage.setItem("searchedCities", JSON.stringify(storedCity));
+        if (!searchedCities.includes(city)) {
+            var lastSearchEl = document.createElement('button');
+            lastSearchEl.className = 'searchHistoryBtn';
+            lastSearchEl.textContent = city;
+            searchHistoryEl.append(lastSearchEl);
+            searchedCities.push(city);
+            localStorage.setItem("searchedCities", JSON.stringify(searchedCities));
+        };
     }
     // calls api to get weather tied to cordinates
     function getWeather(latitude, longitude) {
