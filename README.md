@@ -8,12 +8,10 @@ In order to make planning vacations easier, this program was made to easily view
 
 ![Weather Forecast](./assets/images/weather-forecast.png)
 
-Deployed Website: https://afontana405.github.io/Horiseon-Refactor/
+Deployed Website: https://afontana405.github.io/weather-forecast/
 ## Credits
 
-The starter code was sourced from Georgeyoo's github urban-octo-telegram repository which can be found below
-
-Github Repo: https://github.com/coding-boot-camp/urban-octo-telegram
+All weather and forecast data is pulled from the OpenWeather API.
 
 ## License
 
