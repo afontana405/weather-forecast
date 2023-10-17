@@ -21,6 +21,7 @@ $(document).ready(function() {
     });
     // on btn click, runs find cords function
     submitbtn.click(function() {
+        currentIconEl.empty();
         findCords();
     });
     // converts city imputed by user into cords of city
@@ -69,7 +70,10 @@ $(document).ready(function() {
         currentWindEl.text("wind speed: " + data.wind.speed + "mph");
         currentTempEl.text("temp: " + data.main.temp + "°F");
         currentHumidityEl.text("humidity: " + data.main.humidity + "%");
-        currentIconEl.text(data.weather[0].icon);
+        var iconVal = data.weather[0].icon; // get the icon value
+        var icon = 'https://openweathermap.org/img/wn/' + iconVal + '@2x.png'; // get the icon image
+        var png = $('<img src="' + icon + '">');
+        currentIconEl.append(png);
     }
     // calls api to get forecast
     function getForecast(latitude, longitude) {
@@ -93,12 +97,20 @@ $(document).ready(function() {
             forecastWindEl[0].textContent = 'Wind Speed: ' + data.list[forecastDaySelector[i]].wind.speed + 'mph';
             var forecastHumidityEl = document.getElementById([i]).getElementsByClassName('humidity');
             forecastHumidityEl[0].textContent = 'Humidity: ' + data.list[forecastDaySelector[i]].main.humidity + '%';
+            var forecastIconEl = document.getElementById([i]).getElementsByClassName('icon');
+            forecastIconEl[0].textContent = '';
+            var forecastIconVal = data.list[forecastDaySelector[i]].weather[0].icon; // get the icon value
+            var forecastIcon = 'https://openweathermap.org/img/wn/' + forecastIconVal + '@2x.png'; // get the icon image
+            var forecastPng = $('<img src="' + forecastIcon + '">');
+            forecastIconEl[0].append(forecastPng[0]);
+
         }
     }
     // calls function when search history button is clicked
     $(document).on("click", searchHistoryBtn, function () {
         var cityName = event.target.textContent;
         if (cityName) {
+            currentIconEl.empty();
             refindWeather(cityName);
         }
     });
@@ -133,6 +145,9 @@ $(document).ready(function() {
         currentWindEl.text("wind speed: " + data.wind.speed + "mph");
         currentTempEl.text("temp: " + data.main.temp + "°F");
         currentHumidityEl.text("humidity: " + data.main.humidity + "%");
-        currentIconEl.text(data.weather[0].icon);
+        var iconVal = data.weather[0].icon; // get the icon value
+        var icon = 'https://openweathermap.org/img/wn/' + iconVal + '@2x.png'; // get the icon image
+        var png = $('<img src="' + icon + '">');
+        currentIconEl.append(png);
     }
 });

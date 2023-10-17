@@ -9,9 +9,11 @@ header {
 }
 
 aside {
+    align-content: center;
     background-color: lightblue;
     border-style: solid;
     height: 600px;
+    text-align: center;
 }
 
 #currentWeather {
@@ -20,16 +22,7 @@ aside {
     height: 200px;
     position: relative;
     top: 10px;
-}
-
-#forecastWeather {
-    background-color: lightcoral;
-    border-style: solid;
-    height: 250px;
-    display: flex;
-    position: relative;
-    bottom: -100px;
-    font-weight: 300;
+    font-weight: bold !important;
 }
 
 #forecastHeader {
@@ -40,4 +33,17 @@ aside {
     font-weight: 600;
     position: relative;
     bottom: -100px;
+}
+
+#forecastWeather {
+    background-color: lightcoral;
+    border-style: solid;
+    height: 250px;
+    display: flex;
+    position: relative;
+    bottom: -100px;
+}
+
+.fiveDayForecast {
+    font-weight: bold !important;
 }
