@@ -27,7 +27,7 @@ $(document).ready(function() {
     // converts city imputed by user into cords of city
     function findCords() {
         var city = inputEl.val();
-        geoCoderUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=1&appid=7ff589e4bc4b4b8d6fc8df8bb1158396'
+        geoCoderUrl = 'https://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=1&appid=7ff589e4bc4b4b8d6fc8df8bb1158396'
         fetch(geoCoderUrl)
         .then(function (response) {
             return response.json();
@@ -116,7 +116,7 @@ $(document).ready(function() {
     });
     // finds weather after search button is clicked
     function refindWeather(cityName) {
-        geoCoderUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' + cityName + '&limit=1&appid=7ff589e4bc4b4b8d6fc8df8bb1158396'
+        geoCoderUrl = 'https://api.openweathermap.org/geo/1.0/direct?q=' + cityName + '&limit=1&appid=7ff589e4bc4b4b8d6fc8df8bb1158396'
         fetch(geoCoderUrl)
         .then(function (response) {
             return response.json();
